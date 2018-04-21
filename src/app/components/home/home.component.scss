@@ -1,6 +1,7 @@
 .container {
   height: 100%;
-  display: flex;
+  // display: flex;
+  text-align: center;
   align-items: center;
   justify-content: center;
 
@@ -8,7 +9,7 @@
   -webkit-background-size: cover; /* pour anciens Chrome et Safari */
   background-size: cover; /* version standardisée */
 
-  .title {
+  .title, .undertitle {
     color: white;
     margin:0;
     padding:50px 20px;

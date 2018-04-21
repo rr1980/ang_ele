@@ -1,12 +1,7 @@
 {
   "name": "angular-electron",
-  "version": "3.3.0",
-  "description": "Angular 5 with Electron (Typescript + SASS + Hot Reload)",
-  "homepage": "https://github.com/maximegris/angular-electron",
-  "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
-  },
+  "version": "",
+  "description": "",
   "keywords": [
     "angular",
     "angular 5",
@@ -24,7 +19,8 @@
     "build:prod": "node hooks/environments/set_profile.js && ng build --prod && npm run electron:tsc",
     "ng:serve": "ng serve -o",
     "electron:tsc": "tsc main.ts",
-    "electron:serve": "wait-on http-get://localhost:4200/ && npm run electron:tsc && electron . --serve",
+    "electron:serve": "wait-on npm run electron:tsc && electron . --serve",
+    "//   electron:serve": "wait-on http-get://localhost:4200/ && npm run electron:tsc && electron . --serve",
     "electron:local": "npm run build:prod && electron .",
     "electron:linux": "npm run build:prod && npx electron-builder build --linux",
     "electron:windows": "npm run build:prod && npx electron-builder build --windows",
@@ -47,8 +43,6 @@
     "@angular/platform-browser": "5.2.9",
     "@angular/platform-browser-dynamic": "5.2.9",
     "@angular/router": "5.2.9",
-    "@ngx-translate/core": "9.1.1",
-    "@ngx-translate/http-loader": "2.0.1",
     "@types/core-js": "0.9.36",
     "@types/jasmine": "2.8.6",
     "@types/jasminewd2": "2.0.3",
