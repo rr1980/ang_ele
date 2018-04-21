@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, ipcMain } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
@@ -27,7 +27,8 @@ function createWindow() {
 
   if (serve) {
     require('electron-reload')(__dirname, {
-     electron: require(`${__dirname}/node_modules/electron`)});
+      electron: require(`${__dirname}/node_modules/electron`)
+    });
     win.loadURL('http://localhost:4200');
   } else {
     win.loadURL(url.format({
@@ -49,6 +50,11 @@ function createWindow() {
 }
 
 try {
+
+  ipcMain.on('getInit', (event, arg) => {
+    console.log('getInit:', event, JSON.stringify(arg));
+    event.sender.send('getInit', { name: 'Klaus!' });
+  })
 
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.

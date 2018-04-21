@@ -1,11 +1,5 @@
-<div class="containera">
-  <h1 class="title">
-    {{ 'PAGES.HOME.TITLE' }}
-  </h1>
-  <p class="text-danger">
-    Was geht?
-  </p>
-  <p>
-      Was geht?
-    </p>
-</div>
+<app-navbar></app-navbar>
+<span *ngIf="homeData" class="navbar-text">
+    {{homeData.name}}
+  </span>
+<router-outlet></router-outlet>  

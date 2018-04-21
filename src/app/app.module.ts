@@ -3,36 +3,27 @@ import 'reflect-metadata';
 import '../polyfills';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
-import { HttpClientModule, HttpClient } from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing.module';
-
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { ElectronService } from './providers/electron.service';
-
-import { WebviewDirective } from './directives/webview.directive';
+import { AppRoutingModule, routedComponents } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
+
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    WebviewDirective
+    routedComponents
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    NgbModule.forRoot(),
+    BrowserModule,
+    SharedModule.forRoot(),
     AppRoutingModule,
   ],
-  providers: [ElectronService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

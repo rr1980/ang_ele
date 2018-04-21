@@ -7,7 +7,7 @@ import * as childProcess from 'child_process';
 import * as fs from 'fs';
 
 @Injectable()
-export class ElectronService {
+export class InternElectronService {
 
   ipcRenderer: typeof ipcRenderer;
   webFrame: typeof webFrame;
