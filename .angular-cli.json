@@ -22,6 +22,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
+        "../node_modules/bootstrap/scss/bootstrap.scss",
         "styles.scss"
       ],
       "scripts": [],
@@ -58,6 +59,9 @@
   },
   "defaults": {
     "styleExt": "scss",
+    "class": {
+      "spec": false
+    },
     "component": {}
   }
 }
