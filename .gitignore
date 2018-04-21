@@ -6,7 +6,7 @@
 /out-tsc
 /app-builds
 main.js
-
+_rm.md
 # dependencies
 /node_modules
 
