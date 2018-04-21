@@ -9,7 +9,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ElectronService } from './providers/electron.service';
 
@@ -29,6 +29,7 @@ import { HomeComponent } from './components/home/home.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    NgbModule.forRoot(),
     AppRoutingModule,
   ],
   providers: [ElectronService],
