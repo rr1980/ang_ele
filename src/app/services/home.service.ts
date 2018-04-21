@@ -7,22 +7,21 @@ import { ElectronService } from "ngx-electron";
 @Injectable()
 export class HomeService {
 
-
-    private _isLoading: boolean = false;
-    private _isLoaded: boolean = false;
     private _homeModel: BehaviorSubject<HomeModel> = new BehaviorSubject(new HomeModel());
 
     get Model(): Observable<HomeModel> {
 
-        if (!this._isLoaded && !this._isLoading) {
-            this._isLoading = true;
+        if (!this._homeModel.getValue().isLoaded && !this._homeModel.getValue().isLoading) {
+            var _model = this._homeModel.getValue()
+            _model.isLoading = true;
+            this._homeModel.next(_model);
             this.electronService.ipcRenderer.send('getInit');
             console.debug("...start load");
         }
-        else if (this._isLoaded && !this._isLoading) {
+        else if (this._homeModel.getValue().isLoaded && !this._homeModel.getValue().isLoading) {
             console.debug("...only read");
         }
-        else if (!this._isLoaded && this._isLoading) {
+        else if (!this._homeModel.getValue().isLoaded && this._homeModel.getValue().isLoading) {
             console.debug("...is loading");
         }
 
@@ -33,12 +32,14 @@ export class HomeService {
         this.electronService.ipcRenderer.on('getInit', (event, arg) => {
             console.debug("IPC: ", event, arg);
 
-            this._ngZone.run(() => {
-                this._homeModel.next(arg as HomeModel);
-              });
+            arg.isLoaded = true;
+            arg.isLoading = false;
 
-            this._isLoaded = true;
-            this._isLoading = false;
+            this._ngZone.run(() => {
+                setTimeout(() => {
+                    this._homeModel.next(arg as HomeModel);
+                }, 3000);
+              });
         })
     };
 };

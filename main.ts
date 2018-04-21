@@ -1,6 +1,7 @@
-import { app, BrowserWindow, screen, ipcMain } from 'electron';
+import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import { io } from './controller/api.controller';
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -51,11 +52,7 @@ function createWindow() {
 
 try {
 
-  ipcMain.on('getInit', (event, arg) => {
-    console.log('getInit:', event, JSON.stringify(arg));
-    event.sender.send('getInit', { name: 'Klaus!' });
-  })
-
+  io.init();
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
@@ -79,6 +76,7 @@ try {
   });
 
 } catch (e) {
+  console.error(e);
   // Catch Error
   // throw e;
 }
