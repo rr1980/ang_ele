@@ -1,11 +1,8 @@
-<div class="containera">
-  <h1 class="title">
-    {{ 'PAGES.HOME.TITLE' }}
-  </h1>
-  <p class="text-danger">
-    Was geht?
-  </p>
-  <p>
-      Was geht?
-    </p>
-</div>
+<app-navbar></app-navbar>
+<span *ngIf="appStateModel.isLoaded" class="navbar-text">
+    {{appStateModel.user.name}}
+  </span>
+  <span *ngIf="!appStateModel.isLoaded" class="navbar-text">
+    load...
+  </span>
+<router-outlet></router-outlet>  
