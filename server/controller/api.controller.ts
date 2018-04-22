@@ -1,4 +1,5 @@
-import { ipcMain } from 'electron';
+import { ipcMain, BrowserWindow } from 'electron';
+import { OsDataService } from '../services/os-data.service';
 
 class UserModel {
     userName: string = "rr1980";
@@ -15,13 +16,24 @@ class AppStateModel {
 
 const appState: AppStateModel = new AppStateModel();
 
+
+const getAppState = function () {
+    return appState;
+}
+
+var win: BrowserWindow;
+
 let io = {
 
-    init: function () {
+    init: function (_win: BrowserWindow) {
+        win = _win;
+        setInterval(() => {
+            win.webContents.send('setCpus', OsDataService.getCpus());
+        }, 2000);
 
         ipcMain.on('getInit', (event, arg) => {
-            console.log('getInit:', event, JSON.stringify(arg));
-            event.sender.send('getInit', appState);
+            console.log('getInit called...');
+            event.sender.send('getInit', getAppState());
         })
 
     }

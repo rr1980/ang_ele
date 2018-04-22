@@ -5,6 +5,18 @@ export class AppStateModel {
     user: UserModel = new UserModel();
 };
 
+//-----------------------------
+
+export class CpuItemModel {
+    use:number;
+};
+
+export class CpuModel {
+    cpus: CpuItemModel[];
+};
+
+//-----------------------------
+
 export class UserModel {
     userName: string;
     name: string;

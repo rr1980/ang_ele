@@ -49,11 +49,13 @@ var Server;
             });
         }
         try {
-            api_controller_1.io.init();
             // This method will be called when Electron has finished
             // initialization and is ready to create browser windows.
             // Some APIs can only be used after this event occurs.
-            electron_1.app.on('ready', createWindow);
+            electron_1.app.on('ready', function () {
+                createWindow();
+                api_controller_1.io.init(win);
+            });
             // Quit when all windows are closed.
             electron_1.app.on('window-all-closed', function () {
                 // On OS X it is common for applications and their menu bar
