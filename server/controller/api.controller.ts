@@ -49,7 +49,6 @@ const getAppState = function (): AppStateResponseModel {
 }
 
 var win: BrowserWindow;
-var timer;
 
 let io = {
 
@@ -70,14 +69,18 @@ let io = {
         })
 
         ipcMain.on('setCpuFeedOn', (event, arg) => {
-            win.webContents.send('setCpus', OsDataService.getCpus());
-            timer = setInterval(() => {
-                win.webContents.send('setCpus', OsDataService.getCpus());
-            }, 2000);
+            
+            OsDataService.getCpusFeed((response)=>{
+                win.webContents.send('setCpus',response);
+            });
+
+  
+
+
         })
 
         ipcMain.on('setCpuFeedOff', (event, arg) => {
-            clearInterval(timer);
+            OsDataService.stop();
         })
     }
 }

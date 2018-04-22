@@ -22,10 +22,21 @@ function delta() {
     })
 }
 
-var startMeasures:any =  null;
+var startMeasures: any = null;
+var timer;
+
 
 let OsDataService = {
-
+    getCpusFeed: function (cb: any) {
+        if (!timer) {
+            timer = setInterval(() => {
+                cb(this.getCpus());
+            }, 2000);
+        }
+        else{
+            cb(this.getCpus());
+        }
+    },
 
     getCpus: function (): CpuModel {
 
@@ -40,6 +51,11 @@ let OsDataService = {
 
         startMeasures = delta();
         return new CpuModel(percentageCPU);
+    },
+
+    stop: function(){
+        clearInterval(timer);
+        timer = null;
     }
 }
 

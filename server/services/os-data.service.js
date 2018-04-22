@@ -28,7 +28,19 @@ function delta() {
     });
 }
 var startMeasures = null;
+var timer;
 var OsDataService = {
+    getCpusFeed: function (cb) {
+        var _this = this;
+        if (!timer) {
+            timer = setInterval(function () {
+                cb(_this.getCpus());
+            }, 2000);
+        }
+        else {
+            cb(this.getCpus());
+        }
+    },
     getCpus: function () {
         if (startMeasures === null) {
             startMeasures = delta();
@@ -39,6 +51,10 @@ var OsDataService = {
         });
         startMeasures = delta();
         return new CpuModel(percentageCPU);
+    },
+    stop: function () {
+        clearInterval(timer);
+        timer = null;
     }
 };
 exports.OsDataService = OsDataService;

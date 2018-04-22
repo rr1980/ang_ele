@@ -40,7 +40,6 @@ var getAppState = function () {
     };
 };
 var win;
-var timer;
 var io = {
     init: function (_win) {
         win = _win;
@@ -53,13 +52,12 @@ var io = {
             event.sender.send('setLogin', validateLogin(arg));
         });
         electron_1.ipcMain.on('setCpuFeedOn', function (event, arg) {
-            win.webContents.send('setCpus', os_data_service_1.OsDataService.getCpus());
-            timer = setInterval(function () {
-                win.webContents.send('setCpus', os_data_service_1.OsDataService.getCpus());
-            }, 2000);
+            os_data_service_1.OsDataService.getCpusFeed(function (response) {
+                win.webContents.send('setCpus', response);
+            });
         });
         electron_1.ipcMain.on('setCpuFeedOff', function (event, arg) {
-            clearInterval(timer);
+            os_data_service_1.OsDataService.stop();
         });
     }
 };

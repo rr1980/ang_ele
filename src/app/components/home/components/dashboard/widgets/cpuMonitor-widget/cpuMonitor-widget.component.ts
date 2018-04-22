@@ -20,7 +20,7 @@ export class CpuMonitorWidgetComponent implements OnInit, OnDestroy {
     maintainAspectRatio: false
   };
   public barChartLabels: string[] = [];
-  public barChartType: string = 'bar';
+  public barChartType: string = 'horizontalBar';
   public barChartLegend: boolean = true;
 
   public barChartData: any[] = [
