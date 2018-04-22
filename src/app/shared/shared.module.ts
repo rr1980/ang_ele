@@ -12,6 +12,7 @@ import { InternElectronService } from '../providers/internElectron.service';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
 import { AppStoreService } from '../services/app-store.service';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   imports: [
@@ -21,14 +22,16 @@ import { AppStoreService } from '../services/app-store.service';
     NgxElectronModule,
     NgbModule.forRoot(),
     NgCircleProgressModule.forRoot(),
-    RoundProgressModule
+    RoundProgressModule,
+    ChartsModule
   ],
   exports: [
     CommonModule,
     FormsModule,
     NgbModule,
     NgCircleProgressModule,
-    RoundProgressModule
+    RoundProgressModule,
+    ChartsModule
   ],
   declarations: []
 })

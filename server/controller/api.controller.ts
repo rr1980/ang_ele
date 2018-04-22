@@ -70,6 +70,7 @@ let io = {
         })
 
         ipcMain.on('setCpuFeedOn', (event, arg) => {
+            win.webContents.send('setCpus', OsDataService.getCpus());
             timer = setInterval(() => {
                 win.webContents.send('setCpus', OsDataService.getCpus());
             }, 2000);

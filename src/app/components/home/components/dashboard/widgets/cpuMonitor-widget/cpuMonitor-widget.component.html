@@ -2,12 +2,9 @@
   loading...
 </div>
 
-<div *ngIf="cpuViewModel && cpuViewModel.cpus" class="progress-wrapper">
-  <div class="current" [ngStyle]="getOverlayStyle()">{{ cpuViewModel.cpus[0].use }}/100</div>
-
-
-  <round-progress [current]="cpuViewModel.cpus[0].use" [max]="100" [color]="'#45ccce'" [background]="'#eaeaea'" [radius]="100"
-    [stroke]="10" [semicircle]="false" [rounded]="true" [clockwise]="false" [responsive]="false" [duration]="800" [animation]="'easeInOutQuart'"
-    [animationDelay]="0">
-  </round-progress>
+<div *ngIf="cpuViewModel && cpuViewModel.cpus">
+  <div style="display: block;">
+    <canvas baseChart width="200" height="300" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+      [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+  </div>
 </div>

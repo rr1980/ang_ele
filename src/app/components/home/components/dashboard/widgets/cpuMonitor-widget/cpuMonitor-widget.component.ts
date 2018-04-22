@@ -9,53 +9,56 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./cpuMonitor-widget.component.scss']
 })
 export class CpuMonitorWidgetComponent implements OnInit, OnDestroy {
-  current: number = 27;
-  max: number = 50;
-  stroke: number = 15;
-  radius: number = 125;
-  semicircle: boolean = false;
-  rounded: boolean = false;
-  responsive: boolean = false;
-  clockwise: boolean = true;
-  color: string = '#45ccce';
-  background: string = '#eaeaea';
-  duration: number = 800;
-  animation: string = 'easeOutCubic';
-  animationDelay: number = 0;
-  animations: string[] = [];
-  gradient: boolean = false;
-  realCurrent: number = 0;
+
+  private sub_Id: number;
+  private sub: Subscription;
+  private _init=false;
+
+  public barChartOptions: any = {
+    scaleShowVerticalLines: false,
+    responsive: false,
+    maintainAspectRatio: false
+  };
+  public barChartLabels: string[] = [];
+  public barChartType: string = 'bar';
+  public barChartLegend: boolean = true;
+
+  public barChartData: any[] = [
+    { data: [], label: 'CPU' }
+  ];
 
   public cpuViewModel: CpuViewModel;
-  sub_Id: number;
-
-  sub:Subscription;
 
   constructor(private appStoreService: AppStoreService) { };
   ngOnInit() {
     this.sub = this.appStoreService.get('setCpus').subscribe((response) => {
-      this.cpuViewModel = response as CpuViewModel;
+
+      if (response) {
+        var _data = [];
+        for (let index = 0; index < (response as CpuViewModel).cpus.length; index++) {
+          const element = (response as CpuViewModel).cpus[index];
+
+          if (!this._init) {
+            this.barChartLabels.push('Cpu' + index.toString());
+          }
+          _data.push(element.use);
+        }
+
+        this._init=true;
+
+        let clone = JSON.parse(JSON.stringify(this.barChartData));
+        clone[0].data = _data;
+        this.barChartData = clone;
+
+        this.cpuViewModel = response as CpuViewModel;
+      }
     });
+
     this.appStoreService.send("setCpuFeedOn");
   };
 
   ngOnDestroy(): void {
     this.appStoreService.send("setCpuFeedOff");
     this.sub.unsubscribe();
-  }
-
-  getOverlayStyle() {
-    let isSemi = this.semicircle;
-    let transform = (isSemi ? '' : 'translateY(-50%) ') + 'translateX(-50%)';
-
-    return {
-      'top': isSemi ? 'auto' : '50%',
-      'bottom': isSemi ? '5%' : 'auto',
-      'left': '50%',
-      'transform': transform,
-      '-moz-transform': transform,
-      '-webkit-transform': transform,
-      'font-size': this.radius / 3.5 + 'px'
-    };
   }
 }

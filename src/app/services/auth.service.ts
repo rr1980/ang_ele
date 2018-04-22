@@ -22,7 +22,7 @@ export class AuthService {
             this.userViewModel = response as UserViewModel;
 
             if (this.userViewModel && this.userViewModel.auth) {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/home/dashboard']);
             }
             else {
                 this.router.navigate(['/login']);

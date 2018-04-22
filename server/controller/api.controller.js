@@ -53,6 +53,7 @@ var io = {
             event.sender.send('setLogin', validateLogin(arg));
         });
         electron_1.ipcMain.on('setCpuFeedOn', function (event, arg) {
+            win.webContents.send('setCpus', os_data_service_1.OsDataService.getCpus());
             timer = setInterval(function () {
                 win.webContents.send('setCpus', os_data_service_1.OsDataService.getCpus());
             }, 2000);
