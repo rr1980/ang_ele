@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from '../../../../services/home.service';
+import { AppStateService } from '../../../../services/app-state.service';
 import { AppStateModel } from '../../../../models/app-state.model';
 
 @Component({
@@ -11,10 +11,10 @@ export class NavbarComponent implements OnInit {
 
   public appStateModel: AppStateModel;
 
-  constructor(private homeService: HomeService) { };
+  constructor(private appStateService: AppStateService) { };
 
   ngOnInit() {
-    this.homeService.AppStateModel.subscribe((response) => {
+    this.appStateService.AppStateModel.subscribe((response) => {
       this.appStateModel = response;
       console.debug("navbar readed...", response);
     });

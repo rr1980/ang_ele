@@ -6,7 +6,7 @@ import { NgxElectronModule } from 'ngx-electron';
 import { AuthGuard } from '../guards/auth.guard';
 import { AjaxService } from '../services/ajax.service';
 import { InternElectronService } from '../providers/internElectron.service';
-
+import { AppStateService } from '../services/app-state.service';
 
 @NgModule({
   imports: [
@@ -27,6 +27,7 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         AuthGuard,
+        AppStateService,
         InternElectronService,
         { provide: 'BASE_URL', useFactory: getBaseUrl },
         AjaxService

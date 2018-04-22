@@ -1,6 +1,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "types": [
+      "node"
+    ],
     "baseUrl": ".",
     // "paths": {
     //   "@angular/*": ["./node_modules/@angular/*"]
@@ -28,8 +31,10 @@
       "dom"
     ]
   },
-  "exclude": [ "node_modules" ],
-   "angularCompilerOptions": {
+  "exclude": [
+    "node_modules"
+  ],
+  "angularCompilerOptions": {
     "strictMetadataEmit": false,
     "debug": true,
     "skipCodeGeneration": true,

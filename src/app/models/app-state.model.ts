@@ -1,6 +1,14 @@
 
-export class AppStateModel{
+export class AppStateModel {
     isLoading: boolean = false;
     isLoaded: boolean = false;
-    name:string;
+    user: UserModel = new UserModel();
 };
+
+export class UserModel {
+    userName: string;
+    name: string;
+    vorName: string;
+    auth: boolean;
+};
+

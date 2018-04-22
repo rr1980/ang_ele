@@ -5,7 +5,7 @@ import { ElectronService } from "ngx-electron";
 import { AppStateModel } from "../models/app-state.model";
 
 @Injectable()
-export class HomeService {
+export class AppStateService {
 
     private _appStateModel: BehaviorSubject<AppStateModel> = new BehaviorSubject(new AppStateModel());
     get AppStateModel(): Observable<AppStateModel> {
@@ -37,9 +37,9 @@ export class HomeService {
             arg.isLoading = false;
 
             this._ngZone.run(() => {
-                setTimeout(() => {
+                // setTimeout(() => {
                     this._appStateModel.next(arg as AppStateModel);
-                }, 3000);
+                // }, 3000);
               });
         })
     };

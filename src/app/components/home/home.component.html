@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <span *ngIf="appStateModel.isLoaded" class="navbar-text">
-    {{appStateModel.name}}
+    {{appStateModel.user.name}}
   </span>
   <span *ngIf="!appStateModel.isLoaded" class="navbar-text">
     load...
