@@ -1,8 +1,8 @@
 
-export class AppStateModel {
+export class AppStateViewModel {
     isLoading: boolean = false;
     isLoaded: boolean = false;
-    user: UserModel = new UserModel();
+    readonly user: UserViewModel = new UserViewModel();
 };
 
 //-----------------------------
@@ -11,13 +11,13 @@ export class CpuItemModel {
     use:number;
 };
 
-export class CpuModel {
+export class CpuViewModel {
     cpus: CpuItemModel[];
 };
 
 //-----------------------------
 
-export class UserModel {
+export class UserViewModel {
     userName: string;
     name: string;
     vorName: string;

@@ -2,16 +2,18 @@ import { Injectable, NgZone } from "@angular/core";
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from "rxjs/Observable";
 import { ElectronService } from "ngx-electron";
-import { AppStateModel, CpuModel } from "../models/app-state.model";
+import { AppStateViewModel, CpuViewModel, UserViewModel } from "../models/app-state.model";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class AppStateService {
 
-    private _appStateModel: BehaviorSubject<AppStateModel> = new BehaviorSubject(new AppStateModel());
-    private _cpuModel: BehaviorSubject<CpuModel> = new BehaviorSubject(new CpuModel());
+    private _ppStateViewModel: BehaviorSubject<AppStateViewModel> = new BehaviorSubject(new AppStateViewModel());
+    private _cpuViewModel: BehaviorSubject<CpuViewModel> = new BehaviorSubject(new CpuViewModel());
+    private _userViewModel: BehaviorSubject<UserViewModel> = new BehaviorSubject(new UserViewModel());
 
 
-    constructor(private electronService: ElectronService, private _ngZone: NgZone) {
+    constructor(private electronService: ElectronService, private _ngZone: NgZone, private router: Router) {
         this.electronService.ipcRenderer.on('getInit', (event, arg) => {
             console.debug("IPC: ", event, arg);
 
@@ -19,40 +21,57 @@ export class AppStateService {
             arg.isLoading = false;
 
             this._ngZone.run(() => {
-                this._appStateModel.next(arg as AppStateModel);
+                this._ppStateViewModel.next(arg as AppStateViewModel);
             });
         })
 
         this.electronService.ipcRenderer.on('setCpus', (event, arg) => {
             this._ngZone.run(() => {
-                this._cpuModel.next(arg as CpuModel);
+                this._cpuViewModel.next(arg as CpuViewModel);
+            });
+        })
+
+        this.electronService.ipcRenderer.on('setLogin', (event, arg) => {
+            console.log("setLogin... ", arg);
+            this._ngZone.run(() => {
+                this._userViewModel.next(arg as UserViewModel);
+                if(this._userViewModel.getValue().auth){
+                    this.router.navigate(['/home']);
+                }
+                else{
+                    this.router.navigate(['/login']);
+                }
             });
         })
     };
 
-    get AppStateModel(): Observable<AppStateModel> {
+    get AppStateViewModel(): Observable<AppStateViewModel> {
 
-        if (!this._appStateModel.getValue().isLoaded && !this._appStateModel.getValue().isLoading) {
+        if (!this._ppStateViewModel.getValue().isLoaded && !this._ppStateViewModel.getValue().isLoading) {
 
-            var _model = this._appStateModel.getValue()
+            var _model = this._ppStateViewModel.getValue()
             _model.isLoading = true;
-            this._appStateModel.next(_model);
+            this._ppStateViewModel.next(_model);
 
             this.electronService.ipcRenderer.send('getInit');
             console.debug("...start load");
         }
-        else if (this._appStateModel.getValue().isLoaded && !this._appStateModel.getValue().isLoading) {
+        else if (this._ppStateViewModel.getValue().isLoaded && !this._ppStateViewModel.getValue().isLoading) {
             console.debug("...only read");
         }
-        else if (!this._appStateModel.getValue().isLoaded && this._appStateModel.getValue().isLoading) {
+        else if (!this._ppStateViewModel.getValue().isLoaded && this._ppStateViewModel.getValue().isLoading) {
             console.debug("...is loading");
         }
 
-        return this._appStateModel.asObservable();
+        return this._ppStateViewModel.asObservable();
     };
 
 
-    get CpuModel(): Observable<CpuModel> {
-        return this._cpuModel.asObservable();
+    get CpuViewModel(): Observable<CpuViewModel> {
+        return this._cpuViewModel.asObservable();
+    };
+
+    get UserViewModel(): Observable<UserViewModel> {
+        return this._userViewModel.asObservable();
     };
 };

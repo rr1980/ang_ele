@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppStateService } from '../../services/app-state.service';
-import { AppStateModel } from '../../models/app-state.model';
+import { AppStateViewModel } from '../../models/app-state.model';
 
 @Component({
   selector: 'app-home',
@@ -9,12 +9,12 @@ import { AppStateModel } from '../../models/app-state.model';
 })
 export class HomeComponent implements OnInit {
 
-  public appStateModel: AppStateModel;
+  public appStateModel: AppStateViewModel;
 
   constructor(private appStateService: AppStateService) { };
 
   ngOnInit() {
-    this.appStateService.AppStateModel.subscribe((response) => {
+    this.appStateService.AppStateViewModel.subscribe((response) => {
       this.appStateModel = response;
       console.debug("home readed...", response);
     });

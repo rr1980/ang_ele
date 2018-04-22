@@ -1,10 +1,12 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxElectronModule } from 'ngx-electron';
 import { AuthGuard } from '../guards/auth.guard';
 import { AjaxService } from '../services/ajax.service';
+import { AuthService } from '../services/auth.service';
 import { InternElectronService } from '../providers/internElectron.service';
 import { AppStateService } from '../services/app-state.service';
 import { NgCircleProgressModule } from 'ng-circle-progress';
@@ -13,6 +15,7 @@ import {RoundProgressModule} from 'angular-svg-round-progressbar';
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     HttpClientModule,
     NgxElectronModule,
     NgbModule.forRoot(),
@@ -21,6 +24,7 @@ import {RoundProgressModule} from 'angular-svg-round-progressbar';
   ],
   exports: [
     CommonModule,
+    FormsModule,
     NgbModule,
     NgCircleProgressModule,
     RoundProgressModule
@@ -32,6 +36,7 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
+        AuthService,
         AuthGuard,
         AppStateService,
         InternElectronService,

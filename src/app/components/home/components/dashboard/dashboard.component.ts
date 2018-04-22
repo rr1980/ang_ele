@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppStateService } from '../../../../services/app-state.service';
-import { AppStateModel, CpuModel } from '../../../../models/app-state.model';
+import { AppStateViewModel, CpuViewModel } from '../../../../models/app-state.model';
 
 
 @Component({
@@ -27,19 +27,19 @@ export class DashboardComponent implements OnInit {
   gradient: boolean = false;
   realCurrent: number = 0;
   
-  public appStateModel: AppStateModel;
-  public cpuModel: CpuModel;
+  public appStateModel: AppStateViewModel;
+  public cpuModel: CpuViewModel;
 
   constructor(private appStateService: AppStateService) { };
 
   ngOnInit() {
 
-    this.appStateService.AppStateModel.subscribe((response) => {
+    this.appStateService.AppStateViewModel.subscribe((response) => {
       this.appStateModel = response;
       console.debug("dash readed...", response);
     });
 
-    this.appStateService.CpuModel.subscribe((response) => {
+    this.appStateService.CpuViewModel.subscribe((response) => {
       if (this.cpuModel) {
         this.cpuModel.cpus[0].use = response.cpus[0].use
       }

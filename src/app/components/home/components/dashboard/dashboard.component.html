@@ -1,36 +1,15 @@
-<p *ngIf="appStateModel">
-  dashboard works! Hallo {{appStateModel.user.name}}
+<p *ngIf="!appStateModel || !appStateModel.isLoaded">
+  ...loading
 </p>
-...!
 
-<div class="progress-wrapper">
-  <div *ngIf="cpuModel" class="current" [ngStyle]="getOverlayStyle()">{{ cpuModel.cpus[0].use }}/100</div>
+<div *ngIf="appStateModel && appStateModel.isLoaded">
+  <div class="progress-wrapper">
+    <div *ngIf="cpuModel" class="current" [ngStyle]="getOverlayStyle()">{{ cpuModel.cpus[0].use }}/100</div>
 
 
-  <round-progress [current]="cpuModel.cpus[0].use" [max]="100" [color]="'#45ccce'" [background]="'#eaeaea'" [radius]="100"
-    [stroke]="10" [semicircle]="false" [rounded]="true" [clockwise]="false" [responsive]="false" [duration]="800" [animation]="'easeInOutQuart'"
-    [animationDelay]="0">
-  </round-progress>
+    <round-progress [current]="cpuModel.cpus[0].use" [max]="100" [color]="'#45ccce'" [background]="'#eaeaea'" [radius]="100"
+      [stroke]="10" [semicircle]="false" [rounded]="true" [clockwise]="false" [responsive]="false" [duration]="800" [animation]="'easeInOutQuart'"
+      [animationDelay]="0">
+    </round-progress>
+  </div>
 </div>
-<!-- 
-<circle-progress
-  [percent]="cpuModel.cpus[0].use"
-  [radius]="100"
-  [outerStrokeWidth]="16"
-  [innerStrokeWidth]="8"
-  [outerStrokeColor]="'#78C000'"
-  [innerStrokeColor]="'#C7E596'"
-  [animation]="true"
-  [animationDuration]="300"
-></circle-progress> -->
-
-<!-- <circle-progress *ngFor="let cpu of cpuModel.cpus"
-  [percent]="cpu.use"
-  [radius]="100"
-  [outerStrokeWidth]="16"
-  [innerStrokeWidth]="8"
-  [outerStrokeColor]="'#78C000'"
-  [innerStrokeColor]="'#C7E596'"
-  [animation]="true"
-  [animationDuration]="300"
-></circle-progress> -->
