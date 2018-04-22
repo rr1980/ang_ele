@@ -1,8 +1,8 @@
 <app-navbar></app-navbar>
 <span *ngIf="appStateModel.isLoaded" class="navbar-text">
-    {{appStateModel.user.name}}
-  </span>
-  <span *ngIf="!appStateModel.isLoaded" class="navbar-text">
-    load...
-  </span>
-<router-outlet></router-outlet>  
+  Moin moin...
+</span>
+<span *ngIf="!appStateModel.isLoaded" class="navbar-text">
+  load...
+</span>
+<router-outlet></router-outlet>

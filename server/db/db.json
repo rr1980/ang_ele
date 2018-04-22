@@ -1,0 +1,14 @@
+{
+  "appState": {
+    "isLoading": false,
+    "isLoaded": false
+  },
+  "users": [
+    {
+      "userName": "rr1980",
+      "name": "Riesner",
+      "vorName": "Rene",
+      "pw": "test"
+    }
+  ]
+}

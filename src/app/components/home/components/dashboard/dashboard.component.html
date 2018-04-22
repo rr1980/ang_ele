@@ -1,4 +1,15 @@
-<p *ngIf="appStateModel">
-  dashboard works! Hallo {{appStateModel.user.name}}
+<p *ngIf="!appStateModel || !appStateModel.isLoaded">
+  ...loading
 </p>
-...!
+
+<div *ngIf="appStateModel && appStateModel.isLoaded && appStateModel.cpu">
+  <div class="progress-wrapper">
+    <div *ngIf="appStateModel && appStateModel.isLoaded && appStateModel.cpu" class="current" [ngStyle]="getOverlayStyle()">{{ appStateModel.cpu.cpus[0].use }}/100</div>
+
+
+    <round-progress [current]="appStateModel.cpu.cpus[0].use" [max]="100" [color]="'#45ccce'" [background]="'#eaeaea'" [radius]="100"
+      [stroke]="10" [semicircle]="false" [rounded]="true" [clockwise]="false" [responsive]="false" [duration]="800" [animation]="'easeInOutQuart'"
+      [animationDelay]="0">
+    </round-progress>
+  </div>
+</div>

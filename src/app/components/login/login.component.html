@@ -14,8 +14,8 @@
                   <label class="sr-only" for="email">E-Mail Address</label>
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                       <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
-                      <input type="text" name="email" class="form-control" id="email"
-                             placeholder="you@example.com" required autofocus>
+                      <input [(ngModel)]="username" type="text" name="username" class="form-control" id="username"
+                             placeholder="username" required autofocus>
                   </div>
               </div>
           </div>
@@ -34,7 +34,7 @@
                   <label class="sr-only" for="password">Password</label>
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                       <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
-                      <input type="password" name="password" class="form-control" id="password"
+                      <input [(ngModel)]="password" type="password" name="password" class="form-control" id="password"
                              placeholder="Password" required>
                   </div>
               </div>
@@ -63,7 +63,7 @@
           <div class="col-md-3"></div>
           <div class="col-md-6">
               <button type="button" class="btn btn-success" (click)="onClickLogin()"><i class="fa fa-sign-in"></i> Login</button>
-              <a class="btn btn-link" href="/password/reset">Forgot Your Password?</a>
+              <!-- <a class="btn btn-link" href="/password/reset">Forgot Your Password?</a> -->
           </div>
       </div>
   </form>
