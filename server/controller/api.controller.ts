@@ -59,7 +59,7 @@ let io = {
 
         ipcMain.on('getInit', (event, arg) => {
             console.log('getInit called...');
-            event.sender.send('getInit', getAppState());
+            event.sender.send('setInit', getAppState());
 
         })
 

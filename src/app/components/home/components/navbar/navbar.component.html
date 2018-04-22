@@ -9,10 +9,10 @@
           <a class="nav-link" routerLink="dashboard" routerLinkActive="active">Dashboard <span class="sr-only">(current)</span></a>
         </li>
     </ul>
-    <span *ngIf="appStateModel.isLoaded" class="navbar-text">
-      {{appStateModel.user.name}}
+    <span *ngIf="userViewModel" class="navbar-text">
+      {{userViewModel.vorName}}
     </span>
-    <span *ngIf="!appStateModel.isLoaded || !appStateModel.user" class="navbar-text">
+    <span *ngIf="!userViewModel" class="navbar-text">
       load...
     </span>
   </div>

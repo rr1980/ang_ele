@@ -46,7 +46,7 @@ var io = {
         win = _win;
         electron_1.ipcMain.on('getInit', function (event, arg) {
             console.log('getInit called...');
-            event.sender.send('getInit', getAppState());
+            event.sender.send('setInit', getAppState());
         });
         electron_1.ipcMain.on('tryLogin', function (event, arg) {
             console.log('tryLogin called...', arg, validateLogin(arg));

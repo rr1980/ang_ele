@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 // import { AuthGuard } from '../../../../guards/auth.guard';
 import { DashboardComponent } from './dashboard.component';
+import { CpuMonitorWidgetComponent } from './widgets/cpuMonitor-widget/cpuMonitor-widget.component';
 
 
 
@@ -18,4 +19,4 @@ const routes: Routes = [
 })
 export class DashboardRoutes { };
 
-export const routedComponents = [DashboardComponent];
+export const routedComponents = [DashboardComponent, CpuMonitorWidgetComponent];

@@ -8,9 +8,10 @@ import { AuthGuard } from '../guards/auth.guard';
 import { AjaxService } from '../services/ajax.service';
 import { AuthService } from '../services/auth.service';
 import { InternElectronService } from '../providers/internElectron.service';
-import { AppStateService } from '../services/app-state.service';
+// import { AppStateService } from '../services/app-state.service';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
+import { AppStoreService } from '../services/app-store.service';
 
 @NgModule({
   imports: [
@@ -37,8 +38,9 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         AuthService,
+        AppStoreService,
         AuthGuard,
-        AppStateService,
+        // AppStateService,
         InternElectronService,
         { provide: 'BASE_URL', useFactory: getBaseUrl },
         AjaxService

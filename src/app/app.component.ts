@@ -1,7 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { InternElectronService } from './providers/internElectron.service';
 import { AppConfig } from './app.config';
-import { AppStateService } from './services/app-state.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +8,7 @@ import { AppStateService } from './services/app-state.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements AfterViewInit {
-  constructor(public internElectronService: InternElectronService, private appStateService: AppStateService) {
+  constructor(public internElectronService: InternElectronService) {
 
     console.log('AppConfig', AppConfig);
 
@@ -23,6 +22,6 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.appStateService.init();
+    // this.appStateService.init();
   }
 }
