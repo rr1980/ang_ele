@@ -30,7 +30,6 @@ let OsDataService = {
     getCpus: function (): CpuModel {
 
         if (startMeasures === null) {
-            console.log("NULL!!!");
             startMeasures = delta();
         }
 

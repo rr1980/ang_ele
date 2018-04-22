@@ -1,5 +1,6 @@
 import { ipcMain, BrowserWindow } from 'electron';
 import { OsDataService } from '../services/os-data.service';
+import { DbDataService } from '../services/db-data.service';
 
 class UserModel {
     userName: string = "rr1980";
@@ -17,8 +18,14 @@ class AppStateModel {
 const appState: AppStateModel = new AppStateModel();
 
 
+if(!DbDataService.getAppState()){
+    console.info("\r\n \r\n seed data... \r\n");
+     DbDataService.seed(appState);
+}
+
+
 const getAppState = function () {
-    return appState;
+    return DbDataService.getAppState();
 }
 
 var win: BrowserWindow;

@@ -1,0 +1,12 @@
+{
+  "appState": {
+    "isLoading": false,
+    "isLoaded": false,
+    "user": {
+      "userName": "rr1980",
+      "name": "Riesner",
+      "vorName": "Rene",
+      "auth": true
+    }
+  }
+}

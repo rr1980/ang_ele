@@ -31,7 +31,6 @@ var startMeasures = null;
 var OsDataService = {
     getCpus: function () {
         if (startMeasures === null) {
-            console.log("NULL!!!");
             startMeasures = delta();
         }
         var endMeasures = delta();

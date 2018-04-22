@@ -2,6 +2,7 @@
 exports.__esModule = true;
 var electron_1 = require("electron");
 var os_data_service_1 = require("../services/os-data.service");
+var db_data_service_1 = require("../services/db-data.service");
 var UserModel = /** @class */ (function () {
     function UserModel() {
         this.userName = "rr1980";
@@ -22,8 +23,12 @@ var AppStateModel = /** @class */ (function () {
 }());
 ;
 var appState = new AppStateModel();
+if (!db_data_service_1.DbDataService.getAppState()) {
+    console.info("\r\n \r\n seed data... \r\n");
+    db_data_service_1.DbDataService.seed(appState);
+}
 var getAppState = function () {
-    return appState;
+    return db_data_service_1.DbDataService.getAppState();
 };
 var win;
 var io = {
