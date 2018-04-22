@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeModel } from 'src/app/components/home/models/home.model';
 import { HomeService } from '../../../../services/home.service';
+import { AppStateModel } from '../../../../models/app-state.model';
 
 
 @Component({
@@ -10,14 +10,14 @@ import { HomeService } from '../../../../services/home.service';
 })
 export class DashboardComponent implements OnInit {
 
-  public homeData: HomeModel; 
+  public appStateModel: AppStateModel; 
 
   constructor(private homeService: HomeService) { };
 
   ngOnInit() {
 
-    this.homeService.Model.subscribe((response) => {
-      this.homeData = response;
+    this.homeService.AppStateModel.subscribe((response) => {
+      this.appStateModel = response;
       console.debug("dash readed...", response);
     });
   };

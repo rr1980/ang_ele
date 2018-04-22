@@ -1,8 +1,8 @@
 <app-navbar></app-navbar>
-<span *ngIf="homeData.isLoaded" class="navbar-text">
-    {{homeData.name}}
+<span *ngIf="appStateModel.isLoaded" class="navbar-text">
+    {{appStateModel.name}}
   </span>
-  <span *ngIf="!homeData.isLoaded" class="navbar-text">
+  <span *ngIf="!appStateModel.isLoaded" class="navbar-text">
     load...
   </span>
 <router-outlet></router-outlet>  
