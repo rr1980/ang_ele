@@ -14,9 +14,8 @@ export class HomeComponent implements OnInit {
   constructor(private appStateService: AppStateService) { };
 
   ngOnInit() {
-    this.appStateService.AppStateViewModel.subscribe((response) => {
+    this.appStateService.AppStateViewModel.get.subscribe((response) => {
       this.appStateModel = response;
-      console.debug("home readed...", response);
     });
   };
 };

@@ -49,18 +49,18 @@ const getAppState = function (): AppStateResponseModel {
 }
 
 var win: BrowserWindow;
+var timer;
 
 let io = {
 
     init: function (_win: BrowserWindow) {
         win = _win;
-        setInterval(() => {
-            win.webContents.send('setCpus', OsDataService.getCpus());
-        }, 2000);
+
 
         ipcMain.on('getInit', (event, arg) => {
             console.log('getInit called...');
             event.sender.send('getInit', getAppState());
+
         })
 
         ipcMain.on('tryLogin', (event, arg) => {
@@ -69,6 +69,15 @@ let io = {
             event.sender.send('setLogin', validateLogin(arg));
         })
 
+        ipcMain.on('setCpuFeedOn', (event, arg) => {
+            timer = setInterval(() => {
+                win.webContents.send('setCpus', OsDataService.getCpus());
+            }, 2000);
+        })
+
+        ipcMain.on('setCpuFeedOff', (event, arg) => {
+            clearInterval(timer);
+        })
     }
 }
 

@@ -10,9 +10,9 @@
         </li>
     </ul>
     <span *ngIf="appStateModel.isLoaded" class="navbar-text">
-      {{userViewModel.name}}
+      {{appStateModel.user.name}}
     </span>
-    <span *ngIf="!appStateModel.isLoaded" class="navbar-text">
+    <span *ngIf="!appStateModel.isLoaded || !appStateModel.user" class="navbar-text">
       load...
     </span>
   </div>

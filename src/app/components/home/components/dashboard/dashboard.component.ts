@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AppStateService } from '../../../../services/app-state.service';
 import { AppStateViewModel, CpuViewModel } from '../../../../models/app-state.model';
 
@@ -8,7 +8,8 @@ import { AppStateViewModel, CpuViewModel } from '../../../../models/app-state.mo
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
+
 
   current: number = 27;
   max: number = 50;
@@ -28,29 +29,21 @@ export class DashboardComponent implements OnInit {
   realCurrent: number = 0;
   
   public appStateModel: AppStateViewModel;
-  public cpuModel: CpuViewModel;
+  // public cpuModel: CpuViewModel;
 
   constructor(private appStateService: AppStateService) { };
 
   ngOnInit() {
-
-    this.appStateService.AppStateViewModel.subscribe((response) => {
+    this.appStateService.AppStateViewModel.get.subscribe((response) => {
       this.appStateModel = response;
-      console.debug("dash readed...", response);
     });
 
-    this.appStateService.CpuViewModel.subscribe((response) => {
-      if (this.cpuModel) {
-        this.cpuModel.cpus[0].use = response.cpus[0].use
-      }
-      else {
-        this.cpuModel = response;
-      }
-
-
-      console.debug("cpu readed...", response);
-    });
+    this.appStateService.AppStateViewModel.setCpuFeedOn();
   };
+
+  ngOnDestroy(): void {
+    this.appStateService.AppStateViewModel.setCpuFeedOff();
+  }
 
   getOverlayStyle() {
     let isSemi = this.semicircle;

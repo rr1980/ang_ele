@@ -1,8 +1,9 @@
 
 export class AppStateViewModel {
-    isLoading: boolean = false;
+    isLoading: boolean = true;
     isLoaded: boolean = false;
-    readonly user: UserViewModel = new UserViewModel();
+    user: UserViewModel = new UserViewModel();
+    cpu: CpuViewModel = new CpuViewModel();
 };
 
 //-----------------------------

@@ -15,9 +15,9 @@ export class AuthService {
 
     public userViewModel: UserViewModel;
 
-    constructor(private _ngZone: NgZone, private electronService: ElectronService, private appStateService: AppStateService) {
-        this.appStateService.UserViewModel.subscribe((response) => {
-            this.userViewModel = response;
+    constructor( private electronService: ElectronService, private appStateService: AppStateService) {
+        this.appStateService.AppStateViewModel.get.subscribe((response) => {
+            this.userViewModel = response.user;
         });
     };
 

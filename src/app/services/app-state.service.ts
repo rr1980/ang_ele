@@ -8,70 +8,75 @@ import { Router } from "@angular/router";
 @Injectable()
 export class AppStateService {
 
-    private _ppStateViewModel: BehaviorSubject<AppStateViewModel> = new BehaviorSubject(new AppStateViewModel());
-    private _cpuViewModel: BehaviorSubject<CpuViewModel> = new BehaviorSubject(new CpuViewModel());
-    private _userViewModel: BehaviorSubject<UserViewModel> = new BehaviorSubject(new UserViewModel());
+    private _isInit: boolean = false;
+
+    private _appStateViewModel: BehaviorSubject<AppStateViewModel> = new BehaviorSubject(new AppStateViewModel());
+
+    // get AppStateViewModel(): Observable<AppStateViewModel> {
+    //     return this._appStateViewModel.asObservable();
+    // };
+
+    get AppStateViewModel() {
+
+        var self=this;
+
+        return {
+            get: this._appStateViewModel.asObservable(),
+            setCpuFeedOn: function(){
+                self.electronService.ipcRenderer.send('setCpuFeedOn');
+            },
+            setCpuFeedOff: function(){
+                self.electronService.ipcRenderer.send('setCpuFeedOff');
+            }
+        };
+    };
 
 
     constructor(private electronService: ElectronService, private _ngZone: NgZone, private router: Router) {
-        this.electronService.ipcRenderer.on('getInit', (event, arg) => {
-            console.debug("IPC: ", event, arg);
 
-            arg.isLoaded = true;
-            arg.isLoading = false;
+    };
 
+    init() {
+        console.debug("OnInit!!!");
+        this.electronService.ipcRenderer.on('getInit', (event, arg) => this.getInit(event, arg));
+        this.electronService.ipcRenderer.on('setCpus', (event, arg) => this.setCpus(event, arg));
+        this.electronService.ipcRenderer.on('setLogin', (event, arg) => this.setLogin(event, arg));
+        this.electronService.ipcRenderer.send('getInit');
+    }
+
+    private getInit(event, arg) {
+        arg.isLoaded = true;
+        arg.isLoading = false;
+        this._ngZone.run(() => {
+            this._appStateViewModel.next(arg as AppStateViewModel);
+            this._isInit = true;
+        });
+    }
+
+    private setCpus(event, arg) {
+        if (this._isInit) {
+            var vm = this._appStateViewModel.getValue();
+            vm.cpu = arg as CpuViewModel;
             this._ngZone.run(() => {
-                this._ppStateViewModel.next(arg as AppStateViewModel);
+                this._appStateViewModel.next(vm);
             });
-        })
+        }
+    }
 
-        this.electronService.ipcRenderer.on('setCpus', (event, arg) => {
+    private setLogin(event, arg) {
+        if (this._isInit) {
+            var vm = this._appStateViewModel.getValue();
+            vm.user = arg as UserViewModel;
             this._ngZone.run(() => {
-                this._cpuViewModel.next(arg as CpuViewModel);
-            });
-        })
+                this._appStateViewModel.next(vm);
 
-        this.electronService.ipcRenderer.on('setLogin', (event, arg) => {
-            console.log("setLogin... ", arg);
-            this._ngZone.run(() => {
-                this._userViewModel.next(arg as UserViewModel);
-                if(this._userViewModel.getValue().auth){
+                if (vm.user.auth) {
                     this.router.navigate(['/home']);
                 }
-                else{
+                else {
                     this.router.navigate(['/login']);
                 }
             });
-        })
-    };
-
-    get AppStateViewModel(): Observable<AppStateViewModel> {
-
-        if (!this._ppStateViewModel.getValue().isLoaded && !this._ppStateViewModel.getValue().isLoading) {
-
-            var _model = this._ppStateViewModel.getValue()
-            _model.isLoading = true;
-            this._ppStateViewModel.next(_model);
-
-            this.electronService.ipcRenderer.send('getInit');
-            console.debug("...start load");
         }
-        else if (this._ppStateViewModel.getValue().isLoaded && !this._ppStateViewModel.getValue().isLoading) {
-            console.debug("...only read");
-        }
-        else if (!this._ppStateViewModel.getValue().isLoaded && this._ppStateViewModel.getValue().isLoading) {
-            console.debug("...is loading");
-        }
-
-        return this._ppStateViewModel.asObservable();
-    };
-
-
-    get CpuViewModel(): Observable<CpuViewModel> {
-        return this._cpuViewModel.asObservable();
-    };
-
-    get UserViewModel(): Observable<UserViewModel> {
-        return this._userViewModel.asObservable();
-    };
+    }
 };

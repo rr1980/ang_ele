@@ -9,19 +9,15 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  username: string;
-  password: string;
+  username: string = "rr1980";
+  password: string = "test";
 
   constructor(private router: Router, private authService: AuthService) { };
 
   ngOnInit() {
   };
 
-
   onClickLogin() {
     this.authService.Login({ username: this.username, password: this.password });
-
-    // this.router.navigate(['/home']);
   };
-
 }
