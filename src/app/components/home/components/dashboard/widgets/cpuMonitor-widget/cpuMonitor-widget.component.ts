@@ -12,11 +12,11 @@ export class CpuMonitorWidgetComponent implements OnInit, OnDestroy {
 
   private sub_Id: number;
   private sub: Subscription;
-  private _init=false;
+  private _init = false;
 
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
-    responsive: false,
+    responsive: true,
     maintainAspectRatio: false
   };
   public barChartLabels: string[] = [];
@@ -24,7 +24,7 @@ export class CpuMonitorWidgetComponent implements OnInit, OnDestroy {
   public barChartLegend: boolean = true;
 
   public barChartData: any[] = [
-    { data: [], label: 'CPU' }
+    { data: [], label: '' }
   ];
 
   public cpuViewModel: CpuViewModel;
@@ -39,12 +39,12 @@ export class CpuMonitorWidgetComponent implements OnInit, OnDestroy {
           const element = (response as CpuViewModel).cpus[index];
 
           if (!this._init) {
-            this.barChartLabels.push('Cpu' + index.toString());
+            this.barChartLabels.push('Cpu' + (1 + index).toString());
           }
           _data.push(element.use);
         }
 
-        this._init=true;
+        this._init = true;
 
         let clone = JSON.parse(JSON.stringify(this.barChartData));
         clone[0].data = _data;

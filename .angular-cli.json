@@ -23,7 +23,8 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/scss/bootstrap.scss",
-        "styles.scss"
+        "styles.scss",
+        "../node_modules/ngx-draggable-widget/NgDraggableWidget.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

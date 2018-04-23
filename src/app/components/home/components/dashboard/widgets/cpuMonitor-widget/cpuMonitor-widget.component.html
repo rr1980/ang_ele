@@ -2,9 +2,14 @@
   loading...
 </div>
 
-<div *ngIf="cpuViewModel && cpuViewModel.cpus">
+<!-- <div *ngIf="cpuViewModel && cpuViewModel.cpus"> -->
+<div class="widget-content">
+  <div class="widget-content-title text-center">
+    <span>CPUs</span>
+  </div>
   <div style="display: block;">
-    <canvas baseChart width="200" height="300" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-      [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+    <canvas baseChart height="250" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+      [chartType]="barChartType"></canvas>
   </div>
 </div>
+<!-- </div>  -->

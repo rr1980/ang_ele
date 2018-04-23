@@ -13,6 +13,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
 import { AppStoreService } from '../services/app-store.service';
 import { ChartsModule } from 'ng2-charts';
+import { NgDraggableWidgetModule } from 'ngx-draggable-widget';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { ChartsModule } from 'ng2-charts';
     NgxElectronModule,
     NgbModule.forRoot(),
     NgCircleProgressModule.forRoot(),
+    NgDraggableWidgetModule,
     RoundProgressModule,
     ChartsModule
   ],
@@ -30,6 +32,7 @@ import { ChartsModule } from 'ng2-charts';
     FormsModule,
     NgbModule,
     NgCircleProgressModule,
+    NgDraggableWidgetModule,
     RoundProgressModule,
     ChartsModule
   ],

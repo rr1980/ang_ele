@@ -73,6 +73,7 @@
     "karma-jasmine-html-reporter": "1.0.0",
     "ng-circle-progress": "^0.9.9",
     "ng2-charts": "^1.6.0",
+    "ngx-draggable-widget": "^1.0.7",
     "ngx-electron": "^1.0.4",
     "npm-run-all": "4.1.2",
     "npx": "10.2.0",

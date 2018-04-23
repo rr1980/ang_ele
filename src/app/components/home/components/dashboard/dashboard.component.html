@@ -1,5 +1,17 @@
 
 
-<div>
-  <app-cpuMonitor-widget></app-cpuMonitor-widget>
+
+
+<div [ngWidgetContainer]="{ 'limit_to_screen': true, 'max_cols': 5 }">
+    <app-cpuMonitor-widget [ngWidget]></app-cpuMonitor-widget>
+  
+
 </div>
+
+<!-- 
+<div [ngWidgetContainer]="{'resizeable': false, 'margins': [5, 10]}">
+  <div *ngFor="let widget of widgets" [(ngWidget)]="widget.config">
+      <div class="title">{{widget.title}}</div>
+      <p>{{widget.text}}</p>
+  </div>
+</div> -->
